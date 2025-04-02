@@ -1,0 +1,10 @@
+services:
+    scheduler:
+        volumes:
+        - /home/vlls3rkr/repos/de_capstone/creds/gcp.json:/usr/local/airflow/gcloud/gcp.json:rw
+    webserver:
+        volumes:
+        - /home/vlls3rkr/repos/de_capstone/creds/gcp.json:/usr/local/airflow/gcloud/gcp.json:rw
+    triggerer:
+        volumes:
+        - /home/vlls3rkr/repos/de_capstone/creds/gcp.json:/usr/local/airflow/gcloud/gcp.json:rw

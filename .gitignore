@@ -1,4 +1,4 @@
-*.json
+gcp.json
 
 # Local .terraform directories
 **/.terraform/*

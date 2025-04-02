@@ -1,0 +1,19 @@
+[
+    {"name": "DatGeracaoConjuntoDados", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscResolucaoHomologatoria", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "SigNomeAgente", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "NumCPFCNPJ", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DatInicioVigencia", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DatFimVigencia", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscBaseTarifaria", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscSubGrupoTarifario", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscModalidadeTarifaria", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscClasseConsumidor", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DSCSubclasseConsumidor", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscDetalheConsumidor", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscPostoTarifario", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscUnidade", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "SigNomeAgenteAcessante", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "DscComponenteTarifario", "type": "STRING", "mode": "NULLABLE"},
+    {"name": "VlrComponenteTarifario", "type": "STRING", "mode": "NULLABLE"}
+  ]

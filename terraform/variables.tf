@@ -1,11 +1,9 @@
 variable "credentials" {
   description = "Credentials"
-  default     = "../creds/gcp.json"
 }
 
 variable "project" {
   description = "Project"
-  default     = "decapstone-455514"
 }
 
 variable "region" {
@@ -20,7 +18,7 @@ variable "location" {
 
 variable "bq_dataset_name" {
   description = "My BigQuery Dataset Name"
-  default     = "decapstone_dataset"
+  default     = "raw_data"
 }
 
 variable "gcs_bucket_name" {
@@ -31,4 +29,8 @@ variable "gcs_bucket_name" {
 variable "gcs_storage_class" {
   description = "Bucket Storage Class"
   default     = "STANDARD"
+}
+
+variable "service_account" {
+  description = "Service Account for Data Transfer"
 }

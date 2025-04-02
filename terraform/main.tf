@@ -10,7 +10,7 @@ provider "google" {
   region      = var.region
 }
 
-resource "google_storage_bucket" "demo-bucket" {
+resource "google_storage_bucket" "componentes-tarifarias" {
   name          = var.gcs_bucket_name
   location      = var.location
   force_destroy = true
@@ -24,10 +24,21 @@ resource "google_storage_bucket" "demo-bucket" {
     }
 
   }
+
+  versioning {
+    enabled = true
+  }
 }
 
-resource "google_bigquery_dataset" "demo_dataset" {
+resource "google_bigquery_dataset" "project_dataset" {
   dataset_id = var.bq_dataset_name
   location   = var.location
 
+}
+
+resource "google_bigquery_table" "componente_tarifarias" {
+  dataset_id = google_bigquery_dataset.project_dataset.dataset_id
+  table_id   = "componente_tarifarias"
+
+  schema = file("${path.module}/schemas/componente_tarifarias.json")
 }
