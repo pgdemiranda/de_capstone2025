@@ -1,0 +1,69 @@
+version: 2
+
+sources:
+  - name: dimensions
+    description: > 
+      dimensional data extracted from staging schema
+    schema: data_warehouse_dim
+    loader: bigquery
+
+    tables:
+      - name: dim_agents
+        description: "data from staging model"
+        columns:
+          - name: id
+            description: >
+              Primary key.
+            data_type: int
+          - name: sig_nome_agente
+            description: >
+              Abbreviation of the name of Agents regulated by ANEEL.
+            data_type: string
+          - name: num_cpf_cnpj
+            description: >
+              CNPJ or CPF number of the audited agent (organization).
+            data_type: string
+          - name: sig_nome_agente_acessante
+            description: >
+              Applicable in cases of nominal tariffs, specifically applicable to a user (distributor, consumer unit, or generator). The abbreviation is as registered in ANEEL's agent registry. Example: AmE, CEMIG-D, EMT, DCELT, CERFOX, etc.
+            data_type: string
+          - name: dsc_componente_tarifario
+            description: >
+              Description of the tariff component as: 
+              "Components of the Tariff for Use of the Distribution System - TUSD (Tarifas de Uso do Sistema de Distribuição) and 
+              the Energy Tariff - TE (Tarifas de Energia)."
+            data_type: string
+
+      - name: dim_tariff
+        description: "data from staging model"
+        columns:
+          - name: id
+            description: >
+              Primary key.
+            data_type: int
+          - name: dsc_resolucao_homologatoria
+            description: >
+              Information about the number and date of the Homologatory Resolution.
+            data_type: string
+          - name: dsc_componente_tarifario
+            description: >
+              Description of the tariff component as: 
+              "Components of the Tariff for Use of the Distribution System - TUSD (Tarifas de Uso do Sistema de Distribuição) and 
+              the Energy Tariff - TE (Tarifas de Energia)."
+            data_type: string
+          - name: num_cpf_cnpj
+            description: >
+              CNPJ or CPF number of the audited agent (organization).
+            data_type: string
+          - name: dat_inicio_vigencia
+            description: >
+              Information about the start date of tariff validity.
+            data_type: date
+          - name: dat_fim_vigencia
+            description: >
+              Information about the end date of tariff validity.
+            data_type: date
+          - name: vlw_componente_tarifario
+            description: >
+              Value of the TE and TUSD components according to DscUnidade.
+            data_type: float

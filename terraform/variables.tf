@@ -16,11 +16,6 @@ variable "location" {
   default     = "SOUTHAMERICA-EAST1"
 }
 
-variable "bq_dataset_name" {
-  description = "My BigQuery Dataset Name"
-  default     = "raw_data"
-}
-
 variable "gcs_bucket_name" {
   description = "My Storage Bucket Name"
   default     = "aneel-bucket"

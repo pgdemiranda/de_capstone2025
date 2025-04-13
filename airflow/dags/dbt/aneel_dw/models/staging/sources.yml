@@ -1,0 +1,31 @@
+
+version: 2
+
+sources:
+  - name: raw_data
+    description: "raw data extracted from aneel website"
+    schema: raw_data
+    loader: bigquery
+    loaded_at_field: DatGeracaoConjuntoDados
+
+    tables:
+      - name: componente_tarifarias
+        description: "The raw data"
+        columns:
+          - name: DatGeracaoConjuntoDados
+          - name: DscResolucaoHomologatoria
+          - name: SigNomeAgente
+          - name: NumCPFCNPJ
+          - name: DatInicioVigencia
+          - name: DatFimVigencia
+          - name: DscBaseTarifaria
+          - name: DscSubGrupoTarifario
+          - name: DscModalidadeTarifaria
+          - name: DscClasseConsumidor
+          - name: DSCSubclasseConsumidor
+          - name: DscDetalheConsumidor
+          - name: DscPostoTarifario
+          - name: DscUnidade
+          - name: SigNomeAgenteAcessante
+          - name: DscComponenteTarifario
+          - name: VlrComponenteTarifario

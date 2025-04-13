@@ -1,7 +1,10 @@
 terraform {
-  required_providers { google = {
-    source = "hashicorp/google"
-  version = "6.27.0" } }
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "6.27.0"
+    }
+  }
 }
 
 provider "google" {
@@ -22,7 +25,6 @@ resource "google_storage_bucket" "componentes-tarifarias" {
     action {
       type = "AbortIncompleteMultipartUpload"
     }
-
   }
 
   versioning {
@@ -30,15 +32,41 @@ resource "google_storage_bucket" "componentes-tarifarias" {
   }
 }
 
-resource "google_bigquery_dataset" "project_dataset" {
-  dataset_id = var.bq_dataset_name
+# Criando múltiplos datasets
+resource "google_bigquery_dataset" "raw_data" {
+  dataset_id = "raw_data"
   location   = var.location
-
+  description = "Dataset para dados brutos"
 }
 
-resource "google_bigquery_table" "componente_tarifarias" {
-  dataset_id = google_bigquery_dataset.project_dataset.dataset_id
+# resource "google_bigquery_dataset" "staging" {
+#   dataset_id = "staging"
+#   location   = var.location
+#   description = "Dataset para dados em estágio"
+# }
+# 
+# resource "google_bigquery_dataset" "dimensions" {
+#   dataset_id = "dimensions"
+#   location   = var.location
+#   description = "Dataset para tabelas de dimensões"
+# }
+# 
+# resource "google_bigquery_dataset" "facts" {
+#   dataset_id = "facts"
+#   location   = var.location
+#   description = "Dataset para tabelas de fatos"
+# }
+
+resource "google_bigquery_table" "componente_tarifarias_raw" {
+  dataset_id = google_bigquery_dataset.raw_data.dataset_id
   table_id   = "componente_tarifarias"
 
   schema = file("${path.module}/schemas/componente_tarifarias.json")
 }
+
+# resource "google_bigquery_table" "componente_tarifarias_staging" {
+#   dataset_id = google_bigquery_dataset.staging.dataset_id
+#   table_id   = "componente_tarifarias_processed"
+# 
+#   schema = file("${path.module}/schemas/componente_tarifarias.json")
+# }
