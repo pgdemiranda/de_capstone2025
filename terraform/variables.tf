@@ -1,14 +1,9 @@
 variable "credentials" {
-  description = "Credentials"
+  description = "GCP Credentials"
 }
 
 variable "project" {
   description = "Project"
-}
-
-variable "region" {
-  description = "Project Region"
-  default     = "SOUTHAMERICA-EAST1"
 }
 
 variable "location" {
@@ -24,8 +19,4 @@ variable "gcs_bucket_name" {
 variable "gcs_storage_class" {
   description = "Bucket Storage Class"
   default     = "STANDARD"
-}
-
-variable "service_account" {
-  description = "Service Account for Data Transfer"
 }
