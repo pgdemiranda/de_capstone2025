@@ -1,0 +1,206 @@
+version: 2
+
+models:
+  - name: fct_tariff_by_agent
+    description: > 
+      fact table displaying the positive tariffs used by the distributors
+    columns:
+      - name: tariff_fact_id
+        description: >
+          Primary key.
+        data_type: int
+      
+      - name: dat_inicio_vigencia
+        description: >
+          Information about the start date of tariff validity.
+        data_type: date
+      
+      - name: dat_fim_vigencia
+        description: >
+          Information about the end date of tariff validity.
+        data_type: date
+      
+      - name: sig_nome_agente
+        description: >
+          Abbreviation of the name of Agents regulated by ANEEL.
+        data_type: string
+      
+      - name: sig_nome_agente_acessante
+        description: >
+          Applicable in cases of nominal tariffs, specifically applicable to a user (distributor, consumer unit, or generator). The abbreviation is as registered in ANEEL's agent registry. Example: AmE, CEMIG-D, EMT, DCELT, CERFOX, etc.
+        data_type: string
+      
+      - name: num_cpf_cnpj
+        description: >
+          CNPJ or CPF number of the audited agent (organization).
+        data_type: string
+      
+      - name: dsc_resolucao_homologatoria
+        description: >
+          Information about the number and date of the Homologatory Resolution.
+        data_type: string
+      
+      - name: dsc_componente_tarifario
+        description: >
+          Description of the tariff component as: 
+          "Components of the Tariff for Use of the Distribution System - TUSD (Tarifas de Uso do Sistema de Distribuição) and 
+          the Energy Tariff - TE (Tarifas de Energia)."
+        data_type: string
+      
+      - name: vlr_componente_tarifario
+        description: >
+          Value of the TE and TUSD components according to DscUnidade.
+        data_type: float
+
+  - name: fct_tariff_by_agent_valid
+    description: >
+      fact table displaying the positive tariffs used by the distributors with valid values of consumption by date
+    columns:
+      - name: tariff_fact_id
+        description: >
+          Primary key.
+        data_type: int
+      
+      - name: dat_inicio_vigencia
+        description: >
+          Information about the start date of tariff validity.
+        data_type: date
+      
+      - name: dat_fim_vigencia
+        description: >
+          Information about the end date of tariff validity.
+        data_type: date
+      
+      - name: sig_nome_agente
+        description: >
+          Abbreviation of the name of Agents regulated by ANEEL.
+        data_type: string
+      
+      - name: sig_nome_agente_acessante
+        description: >
+          Applicable in cases of nominal tariffs, specifically applicable to a user (distributor, consumer unit, or generator). The abbreviation is as registered in ANEEL's agent registry. Example: AmE, CEMIG-D, EMT, DCELT, CERFOX, etc.
+        data_type: string
+      
+      - name: num_cpf_cnpj
+        description: >
+          CNPJ or CPF number of the audited agent (organization).
+        data_type: string
+      
+      - name: dsc_resolucao_homologatoria
+        description: >
+          Information about the number and date of the Homologatory Resolution.
+        data_type: string
+      
+      - name: dsc_componente_tarifario
+        description: >
+          Description of the tariff component as: 
+          "Components of the Tariff for Use of the Distribution System - TUSD (Tarifas de Uso do Sistema de Distribuição) and 
+          the Energy Tariff - TE (Tarifas de Energia)."
+        data_type: string
+      
+      - name: vlr_componente_tarifario
+        description: >
+          Value of the TE and TUSD components according to DscUnidade.
+        data_type: float
+
+  - name: fct_tariff_by_agent_neg
+    description: >
+      fact table displaying the negative tariffs used by the distributors
+    columns:
+      - name: tariff_fact_id
+        description: >
+          Primary key.
+        data_type: int
+      
+      - name: dat_inicio_vigencia
+        description: >
+          Information about the start date of tariff validity.
+        data_type: date
+      
+      - name: dat_fim_vigencia
+        description: >
+          Information about the end date of tariff validity.
+        data_type: date
+      
+      - name: sig_nome_agente
+        description: >
+          Abbreviation of the name of Agents regulated by ANEEL.
+        data_type: string
+      
+      - name: sig_nome_agente_acessante
+        description: >
+          Applicable in cases of nominal tariffs, specifically applicable to a user (distributor, consumer unit, or generator). The abbreviation is as registered in ANEEL's agent registry. Example: AmE, CEMIG-D, EMT, DCELT, CERFOX, etc.
+        data_type: string
+      
+      - name: num_cpf_cnpj
+        description: >
+          CNPJ or CPF number of the audited agent (organization).
+        data_type: string
+      
+      - name: dsc_resolucao_homologatoria
+        description: >
+          Information about the number and date of the Homologatory Resolution.
+        data_type: string
+      
+      - name: dsc_componente_tarifario
+        description: >
+          Description of the tariff component as: 
+          "Components of the Tariff for Use of the Distribution System - TUSD (Tarifas de Uso do Sistema de Distribuição) and 
+          the Energy Tariff - TE (Tarifas de Energia)."
+        data_type: string
+      
+      - name: vlr_componente_tarifario
+        description: >
+          Value of the TE and TUSD components according to DscUnidade.
+        data_type: float
+
+  - name: fct_tariff_by_agent_neg_valid
+    description: >
+      fact table displaying the negative tariffs used by the distributors with valid values of consumption by date
+    columns:
+      - name: tariff_fact_id
+        description: >
+          Primary key.
+        data_type: int
+      
+      - name: dat_inicio_vigencia
+        description: >
+          Information about the start date of tariff validity.
+        data_type: date
+      
+      - name: dat_fim_vigencia
+        description: >
+          Information about the end date of tariff validity.
+        data_type: date
+      
+      - name: sig_nome_agente
+        description: >
+          Abbreviation of the name of Agents regulated by ANEEL.
+        data_type: string
+      
+      - name: sig_nome_agente_acessante
+        description: >
+          Applicable in cases of nominal tariffs, specifically applicable to a user (distributor, consumer unit, or generator). The abbreviation is as registered in ANEEL's agent registry. Example: AmE, CEMIG-D, EMT, DCELT, CERFOX, etc.
+        data_type: string
+      
+      - name: num_cpf_cnpj
+        description: >
+          CNPJ or CPF number of the audited agent (organization).
+        data_type: string
+      
+      - name: dsc_resolucao_homologatoria
+        description: >
+          Information about the number and date of the Homologatory Resolution.
+        data_type: string
+      
+      - name: dsc_componente_tarifario
+        description: >
+          Description of the tariff component as: 
+          "Components of the Tariff for Use of the Distribution System - TUSD (Tarifas de Uso do Sistema de Distribuição) and 
+          the Energy Tariff - TE (Tarifas de Energia)."
+        data_type: string
+      
+      - name: vlr_componente_tarifario
+        description: >
+          Value of the TE and TUSD components according to DscUnidade.
+        data_type: float

@@ -109,7 +109,7 @@ Here's the tabularized version of your field descriptions in English:
 - Anaconda
 - Python 3.12
 
-### **3.2 Steps**
+### **3.2 Necessary Steps**
 
 1. **Clone this repository**;
 
@@ -137,7 +137,7 @@ Here's the tabularized version of your field descriptions in English:
     terraform apply -auto-approve
     ```
 
-4. Prepare Python environment, Astronomer and DBT:
+4. Prepare **Python environment**, **Astronomer** and **DBT**:
     - Navigate to [airflow](./airflow/) folder.
     - Create a `docker-compose.override.yml` file and populate it, replacing the placeholder with the absolute path of your `gcp.json` file from the creds folder:
 
@@ -194,56 +194,9 @@ Here's the tabularized version of your field descriptions in English:
     - navigate the `localhost:8080/` on your web browser, login with user **admin** and password **admin**.
     - Manually start `extract_and_load` dag. When finished, start the `load_data_bq` dag.
 
-## **6.0 Google Cloud Plataform**
+## **4.0 Data Visualization**
 
-## **7.0 Infrastructure As a Code - Terraform**
-
-## **8.0 Orchestration - Airflow/Astronomer**
-
-## **9.0 Transformation - DBT/Astronomer-Cosmos**
-
-## **10.0 Data Warehouse - BigQuery**
-
-## **11.0 Data Visualization - Looker**
-
-## **12.0 Conclusion and Next Steps**
-
-
-
--------------------------------------------------------------------------------------------------------
-
-
-
-sudo chmod -R 777 .
-
-## DBT
-pip install dbt-core dbt-bigquery
-
-dbt clean
-dbt deps
-dbt compile
-
-- Adicionar isso no DOckerfile?
-
-RUN python -m venv dbt_venv && source dbt_venv/bin/activate && \
-    pip install --no-cache-dir dbt-bigquery && deactivate
-
-instalar o pacote dbt utils -> dbt deps
-
-
-DBT profile.yml
-
-aneel_dw:
-  outputs:
-    dev:
-      dataset: data_warehouse
-      job_execution_timeout_seconds: 300
-      job_retries: 1
-      keyfile: <path to your credential>
-      location: <location>
-      method: service-account
-      priority: interactive
-      project: <project id>
-      threads: 4
-      type: bigquery
-  target: dev
+## **5.0 Next Steps** 
+- Implementing tests
+- Review the dags
+- Experimenting with AWS or Azure

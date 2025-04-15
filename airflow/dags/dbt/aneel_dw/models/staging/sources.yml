@@ -13,19 +13,94 @@ sources:
         description: "The raw data"
         columns:
           - name: DatGeracaoConjuntoDados
+            datatype: string
+            description: >              
+              Date of automatic load processing at the time of dataset generation for publication.
+
           - name: DscResolucaoHomologatoria
+            datatype: string
+            description: >
+              Information about the number and date of the Homologatory Resolution.
+
           - name: SigNomeAgente
+            datatype: string
+            description: >
+              Abbreviation of the name of Agents regulated by ANEEL.
+
           - name: NumCPFCNPJ
+            datatype: string
+            description: >
+              CNPJ or CPF number of the audited agent (organization).
+
           - name: DatInicioVigencia
+            datatype: string
+            description: >
+              Information about the start date of tariff validity.
+
           - name: DatFimVigencia
+            datatype: string
+            description: >
+              Information about the end date of tariff validity.
+
           - name: DscBaseTarifaria
+            datatype: string
+            description: >
+              Tariff of Application, Economic Base, and CVA. 
+              The Tariff of Application is used by the distributor for billing consumers, generators, and distributors, as stated in the Homologatory Resolution. 
+              The Economic Base and CVA are used strictly for tariff calculations.
+        
           - name: DscSubGrupoTarifario
+            datatype: string
+            description: >
+              Grouping of consumer units according to tariff groups: A1 (≥230 kV), A2 (88 kV to 138 kV), A3 (69 kV), A3a (30 kV to 44 kV), A4 (2.3 kV to 25 kV), 
+              AS (underground), B1 (residential), B2 (rural), B3 (other classes), B4 (public lighting).
+          
           - name: DscModalidadeTarifaria
+            datatype: string
+            description: >
+              Set of tariffs applicable to energy consumption and demand components, as defined by Normative Resolution No. 1000/2021: 
+              conventional; time-based (green and blue), white, prepaid, generation, and distribution.
+          
           - name: DscClasseConsumidor
+            datatype: string
+            description: >
+              Classification of consumer units according to the purpose of energy use: 
+              residential; rural; public lighting; and not applicable (industrial; commerce, services, and others; public power; public service; and self-consumption).
+          
           - name: DSCSubclasseConsumidor
+            datatype: string
+            description: >
+              Classification of consumer units according to the purpose of energy use: 
+              residential; rural; public lighting; and not applicable (industrial; commerce, services, and others; public power; public service; and self-consumption).
+          
           - name: DscDetalheConsumidor
+            datatype: string
+            description: >
+              Complementary set of variables used in defining tariffs based on application criteria or the universe of eligible consumers.
+          
           - name: DscPostoTarifario
+            datatype: string
+            description: >
+              Identification of the tariff period, defined as hourly intervals for differentiated tariff application throughout the day, as per Normative Resolution No. 1000/2021.
+          
           - name: DscUnidade
+            datatype: string
+            description: >
+              Tariff unit, according to the applicable electrical quantity, which can be R$/kW and R$/MWh for TUSD and R$/MWh for TE.
+          
           - name: SigNomeAgenteAcessante
+            datatype: string
+            description: >
+              Applicable in cases of nominal tariffs, specifically applicable to a user (distributor, consumer unit, or generator). The abbreviation is as registered in ANEEL's agent registry. Example: AmE, CEMIG-D, EMT, DCELT, CERFOX, etc.
+          
           - name: DscComponenteTarifario
+            datatype: string
+            description: >
+              Description of the tariff component as: 
+              "Components of the Tariff for Use of the Distribution System - TUSD (Tarifas de Uso do Sistema de Distribuição) and 
+              the Energy Tariff - TE (Tarifas de Energia)."
+          
           - name: VlrComponenteTarifario
+            datatype: string
+            description: >
+              Value of the TE and TUSD components according to DscUnidade.
