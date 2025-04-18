@@ -1,5 +1,9 @@
 # ANEEL Electricity Tariff Analysis
 
+<div align="center">
+    <img src="./img/aneel.png" alt="ANEEL Logo" width="600"/>
+</div>
+
 ## DataTalks Data Engineering Zoomcamp 2025 Capstone
 
 This project is my capstone for the Data Engineering Zoomcamp, organized by DataTalks. I focus on building an end-to-end **Extract, Load, and Transform (ELT)** pipeline using data from the Open Data Plan (PDA) of Brazil’s Agência Nacional de Energia Elétrica (ANEEL), specifically targeting tariff components applied to electric energy. **The objective here is to serve data in a batch workflow to analyze the different eletric energy tariffs applied by several agents authorized by ANEEL in Brazil**.
