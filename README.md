@@ -1,30 +1,86 @@
-# DataTalks Data Engineering Zoomcamp 2025 Capstone
+# ANEEL Electricity Tariff Analysis
 
-This project is my capstone for the Data Engineering Zoomcamp, organized by DataTalks. I focus on building an end-to-end **Extract, Load, and Transform (ELT)** pipeline using data from the Open Data Plan (PDA) of Brazil’s Agência Nacional de Energia Elétrica (ANEEL), specifically targeting tariff components applied to electric energy. My goal is to demonstrate my proficiency in the entire data engineering lifecycle—from ingestion and transformation to storage and analysis—showcasing my ability to design scalable, efficient, and reliable data solutions.
+## DataTalks Data Engineering Zoomcamp 2025 Capstone
+
+This project is my capstone for the Data Engineering Zoomcamp, organized by DataTalks. I focus on building an end-to-end **Extract, Load, and Transform (ELT)** pipeline using data from the Open Data Plan (PDA) of Brazil’s Agência Nacional de Energia Elétrica (ANEEL), specifically targeting tariff components applied to electric energy. **The objective here is to serve data in a batch workflow to analyze the different eletric energy tariffs applied by several agents authorized by ANEEL in Brazil**.
+
+My personal goal with this project is to demonstrate my proficiency in the entire data engineering lifecycle—from ingestion and transformation to storage and analysis—showcasing my ability to design scalable, efficient, and reliable data solutions.
 
 ## Table of Contents
+- [Business Problem](#business-problem)
+- [Project Evaluation Disclaimer](#project-evaluation-disclaimer)
+  - [Prerequisites](#prerequisites)
+  - [Orchestration Choice](#orchestration-choice)
+  - [Resource Requirements](#resource-requirements)
+  - [Why Astronomer?](#why-astronomer)
+  - [Batch Processing Design](#batch-processing-design)
+  - [OS Compatibility](#os-compatibility)
+  - [Data Warehouse Optimization Status](#data-warehouse-optimization-status)
+  - [Thank You](#a-huge-thank-you)
+- [1.0 Overview](#10-overview)
+  - [1.1 What is ANEEL?](#11-what-is-aneel)
+  - [1.2 About its PDA - Plano de Dados Abertos (Open Data Plan)](#12-about-its-pda---plano-de-dados-abertos-open-data-plan)
+  - [1.3 Project Goals](#13-project-goals)
+  - [1.4 Dataset](#14-dataset)
+- [3.0 How to Reproduce This Project](#30-how-to-reproduce-this-project)
+  - [3.1 Requirements and Tools Used](#31-requirements-and-tools-used)
+  - [3.2 Necessary Steps](#32-necessary-steps)
+- [4.0 Project Components](#40-project-components)
+  - [4.1 - Cloud Infrastructure: Google Cloud Platform & IaC with Terraform](#41---cloud-infrastructure-google-cloud-platform--iac-with-terraform)
+  - [4.2 - Data Ingestion (Batch Workflow): Orchestration with Astronomer](#42---data-ingestion-batch-workflow-orchestration-with-astronomer)
+  - [4.3 - Data Warehouse: BigQuery](#43---data-warehouse-bigquery)
+  - [4.4 - Transformation: DBT](#44---transformation-dbt)
+  - [4.5 - Dashboard: Looker Studio](#45---dashboard-looker-studio)
+- [5.0 Next Steps](#50-next-steps)
 
-## <span style="color:red">**Disclaimer for the evaluation of this project**</span>
-1. **What to install BEFORE running this project**:
-    - Docker.
-    - Anaconda (you can use other environment and package manager, but **I had problems with Poetry**).
-    - Terraform CLI (https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli for instructions).
-    - Astronomer CLI (https://www.astronomer.io/docs/astro/cli/install-cli/ for instructions).
+## Business Problem
+As part of regulatory monitoring for Brazil's electricity sector, ANEEL (National Electric Energy Agency) requires ongoing analysis of tariff components applied by authorized agents. Our team has been tasked with:
 
-2. Orchestration Choice:
-    - The Zoomcamp originally used GCP + Kestra for orchestration, but I chose Apache Airflow instead. I made this decision because I believe this project will strengthen my portfolio as a Data Engineer, and in Brazil (where I live), Airflow skills are in higher demand than Kestra.
+1. Identifying Anomalous Tariff Patterns: Analyzing both positive and negative tariff values to detect potential irregularities or market trends.
 
-3. Resource Requirements:
-    - All resources I mention qualify under the GCP Free Tier. However, to run this project smoothly on a VM, I recommend an E2 or N2 machine with 8GB RAM.
+2. Agent Performance Ranking: Determining the top 10 agents with the highest accumulated positive tariff values (indicating revenue generation) and the top 10 with the most significant negative values (indicating potential subsidies or penalties).
 
-4. Astronomer Integration:
-    - While I reference Airflow for orchestration, I used Astronomer—a service that simplifies Airflow deployment and integrates seamlessly with DBT (my transformation tool). I picked Astronomer specifically for its native DBT support, which streamlines production workflows.
+3. Active Tariff Volume Assessment: Evaluating the financial impact of currently valid tariffs by quantifying the monthly and yearly transaction volumes still in circulation among agents.
 
-5. Batch Processing Approach:
-    - I avoided Apache Spark for batch loading, relying instead on Astronomer + DBT. DBT’s multi-threading capabilities ensure my transformations scale efficiently.
+This analysis will empower ANEEL’s regulatory teams to monitor compliance with tariff policies, identify agents with extreme tariff deviations for further auditing and assess the ongoing financial footprint of active tariffs on the energy market.
 
-6. Using Windows/Mac:
-    - I used Ubuntu Linux to develop and run this project, and naturally most of the instructions are for Linux users.
+**MORE ABOUT ANEEL AND ITS ROLE IN BRAZIL BELOW**
+
+## <span style="color:red">**Project Evaluation Disclaimer**</span>  
+
+### **Prerequisites**  
+Before running this project, ensure you have a GCP account and the following installed:  
+- **Docker**  
+- **Anaconda** (or an alternative environment/package manager; note that I encountered issues with Poetry during testing)  
+- **Terraform CLI** ([installation guide](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli))  
+- **Astronomer CLI** ([installation guide](https://www.astronomer.io/docs/astro/cli/install-cli))
+
+More tools are listed below in **3.1 Requirements and Tools Used** section, but those above are the tools you will need before running this project by yourself.
+
+### **Orchestration Choice**  
+While the Zoomcamp originally used **GCP + Kestra**, I opted for **Apache Airflow** to align with industry demand in Brazil (where I'm based). Airflow is more widely adopted here, and this choice better reflects my professional focus as a Data Engineer.  
+
+### **Resource Requirements**  
+All referenced resources fall under the **GCP Free Tier**. You can run with a VM, which, For optimal performance, I recommend:  
+- Machine type: **E2 or N2**  
+- Minimum RAM: **8GB**  
+
+### **Why Astronomer?**  
+I deployed Airflow via **Astronomer** for its streamlined DBT integration, which simplifies production-grade workflows. This combination improved my pipeline's maintainability and scalability.  
+
+### **Batch Processing Design**  
+I intentionally avoided Apache Spark for batch loading, relying instead on **Astronomer + DBT**. DBT's native multi-threading handled my transformation workloads efficiently without Spark's overhead.  
+
+### **OS Compatibility**  
+This project was developed and tested on **Ubuntu Linux**. While instructions are Linux-centric, adjustments may be needed for Windows/Mac environments.  
+
+### **Data Warehouse Optimization Status**
+The current implementation does not include optimization for the BigQuery tables that comprise the Data Warehouse. At this stage, I haven't developed an automated solution for this optimization process. 
+
+I acknowledge that this limitation results in a 2-point penalty according to project evaluation criteria, and I accept this penalty as part of the current project state.
+
+### **A Huge Thank You!**
+Just wanted to say a huge thanks for taking the time to check out my project. Your feedback and evaluation will help me become a better data engineer. Really appreciate.
 
 ## **1.0 Overview**
 ### **1.1 What is ANEEL?**
@@ -59,11 +115,11 @@ The PDA aims to:
 
 Source: **https://dadosabertos.aneel.gov.br/about**
 
-### **1.3 Project Goals**
-- Build a scalable ELT pipeline using Terraform for infrastructure as code.
-- Extract and transform ANEEL's tariff data using Apache Airflow and DBT.
-- Load the processed data into AWS Red Shift for analysis.
-- Create dashboards in Quick View for data visualization and insights.
+### **1.3 Project Goals**  
+- **Build a scalable ELT pipeline** using Terraform for infrastructure as code  
+- **Extract and transform ANEEL's tariff data** using Apache Airflow (Astronomer) and DBT  
+- **Load processed data** into BigQuery for analysis  
+- **Create interactive dashboards** with Looker Studio for data visualization and insights  
 
 ### **1.4 Dataset**
 The dataset in question can be found in the PDA repository at the following link: https://dadosabertos.aneel.gov.br/dataset/componentes-tarifarias. It contains the values of Energy Tariffs (TE) and Distribution System Usage Tariffs (TUSD), resulting from the tariff adjustment processes of electric energy distribution companies. It is a public repository maintained by ANEEL, created on August 25, 2023, and updated weekly, with coverage from 2010 to the present. The data is provided in separate files, one for each year. The file for the current year is updated weekly, requiring weekly downloads and processing. These datasets are available in multiple formats: CSV, TSV, XML, and JSON.
@@ -100,103 +156,194 @@ Here's the tabularized version of your field descriptions in English:
 [Data Dictionary, version 1.0, created in August 25, 2023](https://dadosabertos.aneel.gov.br/dataset/613e6b74-1a4b-4c48-a231-096815e96bd5/resource/cb1d06a8-5b4c-45a0-bb41-9e9546cc578b/download/dm-componentes-tarifarias.pdf)
 
 ## **3.0 How to Reproduce This Project**
+
 ### **3.1 Requirements and Tools Used**
-- GCP Account
+- Google Cloud Platform
 - Docker
 - Terraform
 - Apache Airflow/Astronomer
 - DBT Core
-- Anaconda
 - Python 3.12
 
 ### **3.2 Necessary Steps**
 
-1. **Clone this repository**;
+1. **Clone this repository**
 
-2. **Create a GCP Account**;
+2. **Create a GCP Account**
 
-3. **Create a new Service Account and download the JSON creds**:
-    - Go to the IAM & Admin Console and navigate to Service Account.
-    - Create a new user and assign the necessary permissions: **BigQuery Admin**, **Storage Admin**;
-    - Generate a new Key for the user and store on the folder [**creds**](./creds) and rename it **gcp.json**.
+3. **Create a new Service Account and download the JSON credentials**:
+   - Go to the IAM & Admin Console and navigate to Service Account
+   - Create a new user and assign the necessary permissions:
+     - **BigQuery Admin**
+     - **Storage Admin**
+   - Generate a new Key for the user and store it in the [`creds`](./creds) folder, renamed as `gcp.json`
 
-3. Set up the **infrastructure using Terraform**;
-    - Navigate to the [**terraform**](./terraform/) folder;
-    - Create a `terraform.tfvars` file and populate it, replacing the placeholder with your project ID:
+4. **Set up the infrastructure using Terraform**:
+   - Navigate to the [`terraform`](./terraform/) folder
+   - Create a `terraform.tfvars` file with your project details:
+     ```hcl
+     credentials = "../creds/gcp.json"
+     project = "<project ID>"
+     ```
+   - Initialize and apply the Terraform configuration:
+     ```bash
+     terraform init
+     terraform plan
+     terraform apply -auto-approve
+     ```
 
-    ```hcl
-    credentials = "../creds/gcp.json"
-    project = "<project ID>"
-    ```
+5. **Prepare Python environment, Astronomer and DBT**:
+   - Navigate to the [`airflow`](./airflow/) folder
+   - Create a `docker-compose.override.yml` file with your GCP credentials path:
+     ```yml
+     services:
+       scheduler:
+         volumes:
+           - <absolute path of your gcp.json file>:rw
+       webserver:
+         volumes:
+           - <absolute path of your gcp.json file>:rw
+       triggerer:
+         volumes:
+           - <absolute path of your gcp.json file>:rw
+     ```
+   - Create a `.env` file with these variables:
+     ```
+     GOOGLE_APPLICATION_CREDENTIALS=/usr/local/airflow/gcloud/gcp.json
+     GCP_BUCKET=aneel-bucket
+     LOCATION=southamerica-east1
+     PROJECT_ID=<project id>
+     BQ_PROJECT=<project id/bigquery id>
+     BQ_DATASET=raw_data
+     BQ_TABLE=componente_tarifarias
+     ANEEL_DATASET_URL=https://dadosabertos.aneel.gov.br/dataset/613e6b74-1a4b-4c48-a231-096815e96bd5
+     ```
+   - Start Astronomer containers:
+     ```bash
+     astro dev start
+     ```
+     Note: On Linux/Mac, you may need to run `sudo chmod -R 777 .` first
+   - Access Airflow at `localhost:8080` to confirm it's running
+   - Create a Python 3.12 environment and install packages from [`requirements.txt`](./requirements.txt)
+   - Configure DBT by creating a `profiles.yml` file in either:
+     - [`airflow/dags/dbt/aneel_dw/`](./airflow/dags/dbt/aneel_dw/)
+     - `~/.dbt/profiles.yml` (or equivalent Windows location)
+     ```yml
+     aneel_dw:
+       outputs:
+         dev:
+           dataset: data_warehouse
+           job_execution_timeout_seconds: 300
+           job_retries: 1
+           keyfile: <absolute path of your gcp.json file>
+           location: SOUTHAMERICA-EAST1
+           method: service-account
+           priority: interactive
+           project: <project id>
+           threads: 4
+           type: bigquery
+       target: dev
+     ```
+   - Test the DBT connection:
+     ```bash
+     dbt debug
+     ```
 
-    - Initialize and apply the Terraform configuration:
+6. **Run the Apache Airflow pipelines**:
+   - Access Airflow at `localhost:8080` (credentials: admin/admin)
+   - Manually trigger the `extract_and_load` DAG
+   - After completion, trigger the `load_data_bq` DAG
+   - Note: By default these run Fridays at 22:00 and 23:00 respectively
 
-    ```bash
-    terraform init
-    terraform plan
-    terraform apply -auto-approve
-    ```
+7. **Create a Looker Studio dashboard**:
+   - Access [Looker Studio](https://lookerstudio.google.com/)
+   - Connect to BigQuery and select the fact tables
+   - Note: You may need to:
+     - Activate the Looker API
+     - Grant yourself Looker Studio access via IAM
 
-4. Prepare **Python environment**, **Astronomer** and **DBT**:
-    - Navigate to [airflow](./airflow/) folder.
-    - Create a `docker-compose.override.yml` file and populate it, replacing the placeholder with the absolute path of your `gcp.json` file from the creds folder:
+## **4.0 Project Components**
 
-    ```yml
-    services:
-    scheduler:
-        volumes:
-        - <absolute path of your gcp.json file>:rw
-    webserver:
-        volumes:
-        - <absolute path of your gcp.json file>:rw
-    triggerer:
-        volumes:
-        - <absolute path of your gcp.json file>:rw
-    ```
+### **4.1 - Cloud Infrastructure: Google Cloud Platform & IaC with Terraform**
+The project primarily utilizes two GCP services:  
+- **Cloud Storage Bucket**: Used to affordably and conveniently store spreadsheets from ANEEL's website, accessible through IAM-managed credentials.  
+- **BigQuery**: Serves as both the raw data repository and dimensional data warehouse.  
 
-    - Create a .env file and populate, replacing the placeholder with the variables needed:
+A schema named `raw_data` was created to receive data directly from the Storage Bucket. With the exception of credentials, all infrastructure was provisioned using **Terraform**, which enabled:  
+- Protection of environment variables through `terraform.tfvars`  
+- Easy testing of different infrastructure locations due to straightforward refactoring  
 
-    ```
-    GOOGLE_APPLICATION_CREDENTIALS=/usr/local/airflow/gcloud/gcp.json
-    GCP_BUCKET=aneel-bucket
-    LOCATION=southamerica-east1
-    PROJECT_ID=<project id>
-    BQ_PROJECT=<project id/bigquery id>
-    BQ_DATASET=raw_data
-    BQ_TABLE=componente_tarifarias
-    ANEEL_DATASET_URL=https://dadosabertos.aneel.gov.br/dataset/613e6b74-1a4b-4c48-a231-096815e96bd5
-    ```
+### **4.2 - Data Ingestion (Batch Workflow): Orchestration with Astronomer**
+Workflow orchestration was implemented using **Apache Airflow** deployed via **Astronomer** (running on Docker containers), with native **DBT** integration through the `astronomer-cosmos` package.  
 
-    - Start astronomer containers with `astro dev start` (if you are on Linux or Mac, you can have privileges problems, this can be bypassed with `sudo chmod -R 777 .`). On your web browser navigate to localhost:8080/ to confirm that Astronomer is running.
-    - Create a new environment with Python 3.12 and install dbt-core and dbt-bigquery packages from [requirements.txt](./requirements.txt)
-    - Create a new `profiles.yml` file, replacing the placeholder with the variables needed. You should place this file inside [the project folder](./airflow/dags/dbt/aneel_dw/) or placing it inside `~/.dbt/profiles.yml` location or the appropriate folder if you are a windows user:
-    
-    ```yml
-    aneel_dw:
-      outputs:
-        dev:
-          dataset: data_warehouse
-          job_execution_timeout_seconds: 300
-          job_retries: 1
-          keyfile: <absolute path of your gcp.json file>
-          location: SOUTHAMERICA-EAST1
-          method: service-account
-          priority: interactive
-          project: <project id>
-          threads: 4
-          type: bigquery
-      target: dev
-    ```
+**Key DAGs**:  
+1. [`extract_load.py`](./airflow/dags/extract_load.py):  
+   - Handles spreadsheet ingestion to the Bucket  
+   - Checks for existing files to avoid redundant downloads (only downloads current-year spreadsheets as they're continuously updated)  
 
-    - Validate the connection still inside of [the project fold](./airflow/dags/dbt/aneel_dw/) with the command `dbt debug`.
-    
-5. Run the **Apache Airflow** pipelines to extract and transform the data.
-    - navigate the `localhost:8080/` on your web browser, login with user **admin** and password **admin**.
-    - Manually start `extract_and_load` dag. When finished, start the `load_data_bq` dag.
+2. [`load_to_bq.py`](./airflow/dags/load_to_bq.py):  
+   - Manages data transfer from the Bucket to BigQuery's `raw_data` schema  
 
-## **4.0 Data Visualization**
+<div align="center">
+    <img src="./img/extract-csv-detail.png" alt="extract_load DAG skipping existing CSV files" width="600"/>
+</div>
 
-## **5.0 Next Steps** 
-- Implementing tests
-- Review the dags
-- Experimenting with AWS or Azure
+*Implementation Note*: While manual triggering is required for initial load and project evaluation, the DAGs are scheduled to run automatically every Friday at 22:00 and 23:00 respectively.
+
+### **4.3 - Data Warehouse: BigQuery**
+The warehouse was created using **Terraform**, beginning with a schema for raw data. Subsequent schemas were built in **BigQuery** using **DBT**.  
+
+**Current Limitation**: The warehouse has not been optimized (no clustering or partitioning). This was intentional, as we're exploring ways to automate optimization through code. **This improvement is planned for a future iteration**.
+
+### **4.4 - Transformation: DBT**
+Data transformation was implemented with **DBT Core**, orchestrated through Astronomer using the `astronomer-cosmos` package. The workflow follows three stages:  
+
+1. **`stg` models**:  
+   - Receive data from `raw_data`  
+   - Handle data type conversions  
+
+2. **`dim` models**:  
+   - Isolate agent and tariff dimensions  
+
+3. **`fact` models**:  
+   - Organize tariff values (positive/negative) by ANEEL approval dates
+
+Schema creation was managed automatically by DBT.  
+
+<div align="center">
+    <img src="./img/astro-cosmos-graph-detail.png" alt="load_to_bq DAG with DBT integration" width="600"/>
+</div>
+
+### **4.5 - Dashboard: Looker Studio**
+The dashboard was developed using **Looker Studio**, Google's native BI tool, with two dedicated pages:  
+
+**Page 1: Positive Tariffs**  
+**Page 2: Negative Tariffs**  
+
+Both pages share similar structures but analyze different value types. Key components include:  
+
+**Filters**:  
+- `sig_nome_agente` (tariff-receiving agent)  
+- `sig_nome_agente_acessante` (organization used by the agent)  
+
+**Metrics**:  
+- `Record Count` (total fact table entries)  
+- `Number of Agents` (unique agents)  
+
+**Visualizations**:  
+- `TOP 10 Agents by Values` (Page 1) / `TOP 10 Agents Neg Values` (Page 2)  
+- `Positive/Negative Tariff Values Over Time` (time series by approval month/year)  
+
+**Access Options**:  
+1. [PDF Export](./documents/ANEEL_Electricity_Tariff_Analysis.pdf)  
+2. [Interactive Dashboard](https://lookerstudio.google.com/reporting/1150f77e-5e0c-4b16-87d6-f8c59d9e56dc) *(recommended)*
+
+
+## **5.0 Next Steps**
+This project has significant opportunities for enhancement. I plan to implement the "Going the Extra Mile" requirements from the course repository, which include:
+
+- Implementing comprehensive testing procedures
+- Integrating Makefile automation
+- Establishing a CI/CD pipeline
+
+Also, additional planned improvements can be done towards a better code: conducting a thorough review of all DAGs, refactoring code for better modularity and streamlining pipeline components where possible. Also while this implementation currently uses GCP services, I intend to migrate components to AWS or Azure with the objective to gain hands-on experience with multi-cloud architectures and compare service offerings across platforms.
